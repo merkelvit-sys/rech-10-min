@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="План речи">
+  <title>План речи: Иегова поддерживает тех, кто предан его Царству</title>
+  
+  <style>
+    :root {
+      --primary: #18345E;
+      --primary-light: #244b82;
+      --secondary: #374B69;
+      --scripture-bg: #F0F5FC;
+      --scripture-border: #7DA0CD;
+      --illustration-bg: #F3F9F4;
+      --illustration-border: #5FA579;
+      --hint-bg: #FFF9EB;
+      --hint-border: #E1B95F;
+      --hint-text: #8C550A;
+      --text-main: #1C2430;
+      --text-subdued: #5F6978;
+      --bg-page: #F4F6F9;
+      --card-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --base-font-size: 19px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: var(--base-font-size);
+      line-height: 1.55;
+      color: var(--text-main);
+      background-color: var(--bg-page);
+      padding: 16px;
+      padding-bottom: 110px;
+    }
+
+    .container {
+      max-width: 840px;
+      margin: 0 auto;
+    }
+
+    .control-bar {
+      position: sticky;
+      top: 12px;
+      z-index: 100;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 10px 16px;
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, 0.07);
+      margin-bottom: 20px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      background: var(--bg-page);
+      border: 1px solid var(--border-color);
+      color: var(--secondary);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 9px 15px;
+      min-height: 44px;
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      border-radius: 9px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      user-select: none;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .btn:active {
+      background: #E2E8F0;
+      transform: scale(0.96);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+    .btn-primary:active {
+      background: var(--primary-light);
+    }
+
+    .btn-success {
+      background: #1E6B38;
+      color: #FFFFFF;
+      border-color: #1E6B38;
+    }
+    .btn-success:active {
+      background: #16532B;
+    }
+
+    .noscript-banner {
+      background: #FFF3CD;
+      border: 2px solid #FFE894;
+      color: #856404;
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    /* Timer Widget */
+    .timer-display {
+      font-variant-numeric: tabular-nums;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--primary);
+      min-width: 68px;
+      text-align: center;
+    }
+
+    .header-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+      margin-bottom: 22px;
+      text-align: center;
+    }
+
+    .meta-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85em;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .main-title {
+      font-size: 1.65em;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .key-thought {
+      font-size: 0.95em;
+      color: var(--text-subdued);
+      background: var(--bg-page);
+      padding: 10px 14px;
+      border-radius: 9px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    .key-thought strong {
+      color: var(--text-main);
+    }
+
+    .section-card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+
+    .section-header {
+      background: var(--primary);
+      color: #FFFFFF;
+      padding: 12px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .section-title {
+      font-size: 1.15em;
+      font-weight: 700;
+    }
+
+    .time-badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: #FFF9EB;
+      font-size: 0.85em;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .section-content {
+      padding: 18px 20px;
+    }
+
+    /* Scripture Highlight Box */
+    .scripture-box {
+      background: var(--scripture-bg);
+      border: 2px solid var(--scripture-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 18px 0;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.12em;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+
+    /* Illustration Highlight Box */
+    .illustration-box {
+      background: var(--illustration-bg);
+      border: 2px solid var(--illustration-border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 14px 0 18px 0;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.08em;
+      color: #1E5C35;
+      letter-spacing: 0.02em;
+    }
+
+    /* Speaker Hint / Action Box */
+    .hint-box {
+      background: var(--hint-bg);
+      border: 1px solid var(--hint-border);
+      border-left: 5px solid var(--hint-border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 12px 0 16px 0;
+      color: var(--hint-text);
+      font-size: 0.92em;
+    }
+
+    .hint-label {
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 0.05em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Lists and points */
+    .point-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .point-item {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 16px;
+    }
+
+    .point-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .point-item::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .point-title {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .spoken-phrase {
+      color: var(--primary);
+      font-weight: 700;
+      display: inline;
+    }
+
+    .source-cite {
+      color: var(--text-subdued);
+      font-size: 0.88em;
+    }
+
+    @media print {
+      body {
+        background: #FFFFFF;
+        padding: 0;
+        font-size: 11pt;
+        color: #000;
+      }
+      .control-bar {
+        display: none !important;
+      }
+      .section-card {
+        box-shadow: none;
+        border: 1px solid #CCC;
+        page-break-inside: avoid;
+        margin-bottom: 14px;
+      }
+      .section-header {
+        background: #18345E !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .scripture-box {
+        background: #F0F5FC !important;
+        border: 1px solid #7DA0CD !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .illustration-box {
+        background: #F3F9F4 !important;
+        border: 1px solid #5FA579 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .hint-box {
+        background: #FFF9EB !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Предупреждение для режима Быстрого просмотра iOS -->
+  <noscript>
+    <div class="noscript-banner">
+      ⚠️ <strong>Внимание: скрипты отключены.</strong><br>
+      Файл открыт в режиме «Быстрый просмотр» приложения «Файлы», где Apple блокирует JavaScript.<br>
+      <strong>Как запустить таймер:</strong> Откройте <strong>Safari</strong> или <strong>Chrome</strong> и перетащите файл в браузер.
+    </div>
+  </noscript>
+
+  <div class="control-bar">
+    <div class="btn-group">
+      <button type="button" class="btn" id="fontDecBtn" title="Уменьшить шрифт">A−</button>
+      <button type="button" class="btn" id="fontIncBtn" title="Увеличить шрифт">A+</button>
+      <button type="button" class="btn btn-success" id="downloadBtn" title="Скачать чистый файл .html без .txt">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать .HTML
+      </button>
+      <button type="button" class="btn btn-primary" id="openTabBtn" title="Открыть в чистой вкладке Safari для добавления на экран Домой">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        В новую вкладку
+      </button>
+      <button type="button" class="btn" id="printBtn" title="Сохранить в PDF или напечатать">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        PDF
+      </button>
+    </div>
+
+    <!-- 10-Minute Speech Timer -->
+    <div class="btn-group">
+      <span class="timer-display" id="timer">10:00</span>
+      <button type="button" class="btn btn-primary" id="timerBtn">Старт</button>
+      <button type="button" class="btn" id="resetBtn">Сброс</button>
+    </div>
+  </div>
+
+  <header class="header-card">
+    <div class="meta-line">
+      <span>План речи для выступления</span>
+      <span>Регламент: 10 минут</span>
+    </div>
+    <h1 class="main-title">Иегова поддерживает тех, кто предан его Царству</h1>
+    <div class="key-thought">
+      <strong>Ключевая мысль:</strong> Сохранение христианского нейтралитета и упование на Божью заботу по примеру пророка Иеремии и наших братьев сегодня.
+    </div>
+  </header>
+
+  <!-- Введение -->
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Введение</h2>
+      <span class="time-badge">1.5 мин.</span>
+    </div>
+    <div class="section-content">
+      <ul class="point-list">
+        <li class="point-item">
+          <span class="point-title">Вступление с вопросом к залу:</span> Начните выступление словами:<br>
+          <span class="spoken-phrase">«"Кто не за нас, тот против нас". Слышали ли вы когда-нибудь такое выражение?»</span>
+          
+          <div class="hint-box">
+            <span class="hint-label">Пауза / Действие спикера</span>
+            Сделайте выразительную паузу на 2–3 секунды, установите тёплый зрительный контакт с аудиторией.
+          </div>
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Связь с темой:</span> Продолжите:<br>
+          «Именно так часто рассуждают люди в этом мире, особенно когда речь заходит о политике. В нашем расколотом обществе от людей настойчиво требуют занять чью-либо сторону. Сохранять христианский нейтралитет бывает очень непросто».
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Переход к Библии:</span> Подведите слушателей к основанию речи:<br>
+          «Похожая ситуация сложилась в Иудее во дни пророка Иеремии. Сегодня мы увидим, как Иеремия проявил преданность Божьему Царству в условиях острого политического кризиса, и главное — как Иегова поддерживал своего служителя тогда и как он поддерживает нас сегодня».
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">1. Непопулярная весть в разделенной стране</h2>
+      <span class="time-badge">2 мин.</span>
+    </div>
+    <div class="section-content">
+      <div class="scripture-box">
+        📖 ПРОЧИТАЙТЕ: Иеремия 37:6–10
+      </div>
+
+      <ul class="point-list">
+        <li class="point-item">
+          <span class="point-title">Исторический контекст:</span>
+          Иудея была расколота политическими разногласиями. Когда вавилонская армия временно отступила от Иерусалима из-за египетских войск, у народа возникла ложная эйфория: люди решили, что опасность миновала <span class="source-cite">(книга jr, с. 27, абз. 22)</span>.
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Позиция Иеремии:</span>
+          Пророк не встал на сторону тех, кто возлагал надежды на союз с Египтом. Он смело передал непопулярную весть от Бога: вавилоняне непременно вернутся и город будет сожжён.
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Урок для нас:</span>
+          Преданность Царству Бога означает говорить истину и не поддерживать человеческие политические силы, какими бы спасительными они ни казались на первый взгляд.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">2. Ложные обвинения и преследования</h2>
+      <span class="time-badge">2 мин.</span>
+    </div>
+    <div class="section-content">
+      <div class="scripture-box">
+        📖 ПРОЧИТАЙТЕ: Иеремия 37:13–15
+      </div>
+
+      <ul class="point-list">
+        <li class="point-item">
+          <span class="point-title">Сюжет:</span>
+          Во время передышки Иеремия вышел из города, чтобы получить долю наследства в земле Вениамина. Однако начальник стражи у ворот схватил его.
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Превратное толкование мотивов:</span>
+          Иеремию несправедливо обвинили в государственной измене: <span class="spoken-phrase">«Ты переходишь на сторону халдеев!»</span> <span class="source-cite">(книга jr, с. 28, абз. 23)</span>. Доводы разума не подействовали: пророка жестоко избили и бросили в сырое подземелье.
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Урок для нас:</span>
+          Когда мы придерживаемся нейтралитета, окружающие могут неправильно толковать нашу позицию — считать нас предателями или непатриотичными людьми (вновь принцип «кто не за нас, тот против нас»). Но Иеремия учит нас не поддаваться страху.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">3. Как Иегова поддерживал Иеремию</h2>
+      <span class="time-badge">1.5 мин.</span>
+    </div>
+    <div class="section-content">
+      <div class="scripture-box">
+        📖 ПРОЧИТАЙТЕ: Иеремия 37:21
+      </div>
+
+      <ul class="point-list">
+        <li class="point-item">
+          <span class="point-title">Забота Бога в тюрьме:</span>
+          Царь Седекия перевёл Иеремию во двор стражи. Иегова не оставил пророка: он позаботился о том, чтобы тому ежедневно выдавали <span class="spoken-phrase">«по круглой буханке хлеба с улицы пекарей, пока в городе не закончился хлеб»</span> <span class="source-cite">(«Сторожевая башня», w08 15/10, с. 11, абз. 18)</span>.
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Главный вывод:</span>
+          Бог не устранил трудности моментально, но день за днём давал ровно столько заботы и пищи, сколько требовалось Иеремии для выживания в осаждённом городе.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">4. Иллюстрация: Иегова поддерживает верных и сегодня</h2>
+      <span class="time-badge">2 мин.</span>
+    </div>
+    <div class="section-content">
+      <div class="illustration-box">
+        🖼️ ОБРАТИТЕ ВНИМАНИЕ НА ИЛЛЮСТРАЦИЮ В РАБОЧЕЙ ТЕТРАДИ<br>
+        <small style="font-weight: 500; color: #2E5A3C;">(Коллаж: братья и сёстры, преследуемые за нейтралитет)</small>
+      </div>
+
+      <div class="hint-box">
+        <span class="hint-label">Действие спикера</span>
+        Покажите жестом на рабочую тетрадь (или экран), сделайте секундную паузу, чтобы зал сфокусировал взгляд на фотографиях.
+      </div>
+
+      <ul class="point-list">
+        <li class="point-item">
+          <span class="point-title">Связь иллюстрации с темой:</span> Скажите залу:<br>
+          <span class="spoken-phrase">«Обратите внимание на коллаж в нашей рабочей тетради. Забота Иеговы об Иеремии — это не просто далёкая библейская история. Перед нами лица наших дорогих братьев и сестёр нашего времени».</span>
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Прямая параллель с Иеремией:</span>
+          Вспомните, через что они проходят. Как и Иеремия, они не вмешиваются в политическую борьбу, не берут в руки оружие и ни к кому не проявляют вражды. И точно так же их позицию превратно истолковывают: на них навешивают ярлыки «неблагонадёжных», их судят и приговаривают к годам лишения свободы.
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Подпись к иллюстрации:</span> Прокомментируйте ключевую мысль подписи:<br>
+          <span class="spoken-phrase">«"Современные примеры наших братьев и сестёр показывают, что Иегова по-прежнему заботится о тех, кого преследуют за позицию христианского нейтралитета"».</span>
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Как именно Бог заботится о них сегодня?</span>
+          Он даёт им «силу, превышающую обычную» и внутренний мир, который виден даже по их улыбкам на судебных заседаниях. Он побуждает всемирное братство писать им письма поддержки и заботиться об их семьях. Иегова доказывает: верный служитель никогда не остаётся один!
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section-card">
+    <div class="section-header">
+      <h2 class="section-title">Заключение</h2>
+      <span class="time-badge">1 мин.</span>
+    </div>
+    <div class="section-content">
+      <ul class="point-list">
+        <li class="point-item">
+          <span class="point-title">Вопрос для каждого из нас:</span> Завершите речь вопросом из тетради:<br>
+          <span class="spoken-phrase">«Как пример Иеремии и наших современных братьев и сестёр побуждает лично вас оставаться преданными Царству Бога, несмотря на обострение политической обстановки вокруг?»</span>
+        </li>
+
+        <li class="point-item">
+          <span class="point-title">Финальный призыв:</span>
+          Пусть в наших сердцах всегда звучит непоколебимая уверенность: какие бы штормы ни бушевали в этом мире, Иегова всегда видит нашу преданность и никогда не оставит тех, кто верен его Царству!
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // 1. Изменение размера шрифта под зрение и расстояние от пюпитра
+    let currentSize = 19;
+    const fontDecBtn = document.getElementById('fontDecBtn');
+    const fontIncBtn = document.getElementById('fontIncBtn');
+    const printBtn = document.getElementById('printBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const openTabBtn = document.getElementById('openTabBtn');
+
+    if (fontDecBtn) {
+      fontDecBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentSize = Math.max(14, currentSize - 1);
+        document.documentElement.style.setProperty('--base-font-size', currentSize + 'px');
+      });
+    }
+
+    if (fontIncBtn) {
+      fontIncBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        currentSize = Math.min(28, currentSize + 1);
+        document.documentElement.style.setProperty('--base-font-size', currentSize + 'px');
+      });
+    }
+
+    if (printBtn) {
+      printBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.print();
+      });
+    }
+
+    // Открытие в новой вкладке Safari (идеально для сохранения на экран «Домой»)
+    if (openTabBtn) {
+      openTabBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const htmlDoc = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        window.open(url, '_blank');
+      });
+    }
+
+    // Скачивание файла: принудительно используем application/octet-stream,
+    // чтобы Safari на iPad не дописывал скрытое расширение .txt
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const htmlDoc = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        // application/octet-stream заставляет iPad сохранить файл как сырой бинарный документ
+        const blob = new Blob([htmlDoc], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'speech_outline.html';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 4000);
+      });
+    }
+
+    // 2. Высокоточный таймер на 10 минут с блокировкой ухода экрана в сон (WakeLock)
+    const TOTAL_DURATION_SEC = 10 * 60;
+    let remainingSeconds = TOTAL_DURATION_SEC;
+    let timerInterval = null;
+    let isRunning = false;
+    let targetTimestamp = null;
+    let wakeLock = null;
+
+    const timerDisplay = document.getElementById('timer');
+    const timerBtn = document.getElementById('timerBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    async function activateWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          wakeLock = await navigator.wakeLock.request('screen');
+        }
+      } catch (err) {}
+    }
+
+    function deactivateWakeLock() {
+      if (wakeLock) {
+        wakeLock.release().catch(() => {});
+        wakeLock = null;
+      }
+    }
+
+    function updateDisplay(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+      if (seconds <= 120 && seconds > 0) {
+        timerDisplay.style.color = '#C05621'; // Янтарный за 2 минуты до конца
+      } else if (seconds === 0) {
+        timerDisplay.style.color = '#E53E3E'; // Красный по окончании
+      } else {
+        timerDisplay.style.color = 'var(--primary)';
+      }
+    }
+
+    function tick() {
+      const now = Date.now();
+      const diffMs = targetTimestamp - now;
+      remainingSeconds = Math.max(0, Math.ceil(diffMs / 1000));
+      updateDisplay(remainingSeconds);
+
+      if (remainingSeconds <= 0) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        timerBtn.textContent = 'Конец';
+        timerBtn.style.background = '#E53E3E';
+        deactivateWakeLock();
+      }
+    }
+
+    function toggleTimer(e) {
+      if (e) e.preventDefault();
+
+      if (isRunning) {
+        clearInterval(timerInterval);
+        isRunning = false;
+        timerBtn.textContent = 'Пуск';
+        timerBtn.style.background = 'var(--secondary)';
+        deactivateWakeLock();
+      } else {
+        if (remainingSeconds <= 0) {
+          remainingSeconds = TOTAL_DURATION_SEC;
+        }
+        targetTimestamp = Date.now() + (remainingSeconds * 1000);
+        isRunning = true;
+        timerBtn.textContent = 'Пауза';
+        timerBtn.style.background = '#C05621';
+        activateWakeLock();
+
+        clearInterval(timerInterval);
+        timerInterval = setInterval(tick, 250);
+      }
+    }
+
+    function resetTimer(e) {
+      if (e) e.preventDefault();
+      clearInterval(timerInterval);
+      isRunning = false;
+      remainingSeconds = TOTAL_DURATION_SEC;
+      updateDisplay(remainingSeconds);
+      timerBtn.textContent = 'Старт';
+      timerBtn.style.background = 'var(--primary)';
+      deactivateWakeLock();
+    }
+
+    if (timerBtn) timerBtn.addEventListener('click', toggleTimer);
+    if (resetBtn) resetBtn.addEventListener('click', resetTimer);
+
+    document.addEventListener('visibilitychange', () => {
+      if (isRunning && !document.hidden) {
+        tick();
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
